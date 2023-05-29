@@ -1,8 +1,8 @@
 name: release
 
 on:
-  push:
-    tags: ["*"]
+  schedule:
+    - cron: '37 * * * *'
 
 jobs:
   release:
@@ -11,11 +11,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.9.9'
-      - run: pip install -U pip wheel
-      - run: pip install poetry==1.1.7
-      - run: poetry build
+          python-version: '3.11'
+      - run: pip install --upgrade pip wheel setuptools
+      - run: pip install -r scripts/requirements.txt
+      - run: bash scripts/find-new-version-and-release.sh
       - uses: pypa/gh-action-pypi-publish@master
         with:
+          repository-url: https://test.pypi.org/legacy/
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: dist

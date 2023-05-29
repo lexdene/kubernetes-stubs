@@ -9,10 +9,6 @@ rm -rf kubernetes-client-python \
     kubernetes_ext \
     dist
 
-# install
-pip install --upgrade pip wheel setuptools
-pip install -r scripts/requirements.txt
-
 mkdir -p kubernetes-client-python/scripts
 pushd kubernetes-client-python/scripts
 wget https://github.com/kubernetes-client/python/raw/v${VERSION}/scripts/swagger.json
