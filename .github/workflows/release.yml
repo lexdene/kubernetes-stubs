@@ -18,6 +18,6 @@ jobs:
       - run: bash scripts/find-new-version-and-release.sh
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
           password: ${{ secrets.PYPI_API_TOKEN }}
-          packages_dir: dist
+          packages-dir: dist
