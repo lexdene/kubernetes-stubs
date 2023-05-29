@@ -20,7 +20,8 @@ popd
 
 poetry run python codegen
 
-./bin/fmt
+poetry run black codegen kubernetes-stubs kubernetes_ext
+poetry run isort codegen kubernetes-stubs kubernetes_ext
 
 # Is there any better way to update version from command line?
 toml set --toml-path pyproject.toml tool.poetry.version "${VERSION}.dev0"
