@@ -6,8 +6,7 @@ echo 'version:' $VERSION
 # clean up
 rm -rf kubernetes-client-python \
     kubernetes-stubs \
-    kubernetes_ext \
-    dist
+    kubernetes_ext
 
 mkdir -p kubernetes-client-python/scripts
 pushd kubernetes-client-python/scripts
