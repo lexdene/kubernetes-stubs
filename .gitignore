@@ -1,3 +1,7 @@
 dist
 __pycache__
 venv/
+
+kubernetes-client-python/
+kubernetes-stubs/
+kubernetes_ext/

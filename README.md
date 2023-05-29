@@ -3,3 +3,10 @@
 fork of [kubernetes-stubs](https://pypi.org/project/kubernetes-stubs)
 
 origin readme: [origin readme](README-origin.md)
+
+## how to build for a new version of kubernetes-client-python
+
+run:
+
+    VERSION=23.3.0
+    bash scripts/release.sh $VERSION
