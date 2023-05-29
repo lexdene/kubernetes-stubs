@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "kubernetes-stubs"
+name = "kubernetes-stubs-elephant-fork"
 version = "22.6.0post1"
 description = "Type stubs for the Kubernetes Python API client"
-authors = ["Nikhil Benesch <nikhil.benesch@gmail.com>", "Rami Chowdhury <rami.chowdhury@gmail.com>"]
+authors = ["Nikhil Benesch <nikhil.benesch@gmail.com>", "Rami Chowdhury <rami.chowdhury@gmail.com>", "Elephant Liu"]
 license = "Apache-2.0"
 readme = "README.md"
 
