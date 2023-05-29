@@ -1,6 +1,0 @@
-from typing import Any, Callable, TypeVar
-
-T = TypeVar("T")
-
-def stream(fn: Callable[..., T], *args: Any, **kwargs: Any) -> T: ...
-def portforward(fn: Callable[..., T], *args: Any, **kwargs: Any) -> T: ...

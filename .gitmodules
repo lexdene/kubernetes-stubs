@@ -1,6 +1,0 @@
-[submodule "kubernetes-client-python.git"]
-	path = kubernetes-client-python.git
-	url = https://github.com/kubernetes-client/python.git
-[submodule "kubernetes-client-python"]
-	path = kubernetes-client-python
-	url = https://github.com/kubernetes-client/python.git
