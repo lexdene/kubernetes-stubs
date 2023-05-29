@@ -98,13 +98,23 @@ def make_type_name(
     return inner()
 
 
+def iskeyword(s):
+    if keyword.iskeyword(s):
+        return True
+
+    if s in ("exec",):
+        return True
+
+    return False
+
+
 def make_property_name(s: str, underscored: bool = True):
     if underscored:
         s = inflection.underscore(s)
     else:
         s = s.replace("-", "_")
     s = s.replace("$", "")
-    if keyword.iskeyword(s):
+    if iskeyword(s):
         return "_" + s
     return s
 
