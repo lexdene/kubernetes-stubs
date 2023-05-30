@@ -1,5 +1,6 @@
 [tool.poetry]
 name = "kubernetes-stubs-elephant-fork"
+homepage = "https://github.com/lexdene/kubernetes-stubs"
 description = "Type stubs for the Kubernetes Python API client"
 authors = ["Nikhil Benesch <nikhil.benesch@gmail.com>", "Rami Chowdhury <rami.chowdhury@gmail.com>", "Elephant Liu"]
 license = "Apache-2.0"
