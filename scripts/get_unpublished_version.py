@@ -30,19 +30,26 @@ def get_upstream_versions():
 
 
 def main():
+    limit = 1
+    count = 0
+
     stubbed_versions = get_stubbed_versions()
 
     for version in get_upstream_versions():
         if version.is_prerelease:
             continue
 
-        if version <= Version('22'):
+        if version <= Version('17'):
             continue
 
         if version in stubbed_versions:
             continue
 
         print(version)
+
+        count += 1
+        if count >= limit:
+            break
 
 
 if __name__ == '__main__':
