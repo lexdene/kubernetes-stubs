@@ -39,7 +39,7 @@ def main():
         if version.is_prerelease:
             continue
 
-        if version <= Version('17'):
+        if version < Version('4'):
             continue
 
         if version in stubbed_versions:
