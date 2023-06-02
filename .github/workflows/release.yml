@@ -26,6 +26,5 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         if: steps.check_packages.outputs.files_exists == 'true'
         with:
-          repository-url: https://test.pypi.org/legacy/
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist

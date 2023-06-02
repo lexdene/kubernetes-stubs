@@ -15,7 +15,7 @@ def _get_versions(url):
 
 
 def get_stubbed_versions():
-    url = 'https://test.pypi.org/pypi/kubernetes-stubs-elephant-fork/json'
+    url = 'https://pypi.org/pypi/kubernetes-stubs-elephant-fork/json'
     versions = _get_versions(url)
 
     return set([
