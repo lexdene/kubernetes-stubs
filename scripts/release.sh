@@ -1,7 +1,17 @@
 set -e
 
 VERSION=$1
+SUFFIX=$2
+
+if [ -z "${SUFFIX}" ];
+then
+  PUBLISH_VERSION=$VERSION
+else
+  PUBLISH_VERSION="${VERSION}.${SUFFIX}"
+fi
+
 echo 'version:' $VERSION
+echo 'publish version:' $PUBLISH_VERSION
 
 # clean up
 rm -rf kubernetes-client-python \
@@ -19,6 +29,6 @@ poetry run black codegen kubernetes-stubs kubernetes_ext
 poetry run isort codegen kubernetes-stubs kubernetes_ext
 
 # Is there any better way to update version from command line?
-toml set --toml-path pyproject.toml tool.poetry.version "${VERSION}"
+toml set --toml-path pyproject.toml tool.poetry.version "${PUBLISH_VERSION}"
 
 poetry build
