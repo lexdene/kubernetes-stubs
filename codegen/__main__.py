@@ -29,6 +29,8 @@ class CodegenBuf:
         self.file = path.open(mode="a")
         self.indent = 0
 
+        self.export_names = []
+
     def writeln(self, s: str = ""):
         print(f"{self.indent * '    '}{s}", file=self.file)
 
@@ -38,6 +40,15 @@ class CodegenBuf:
 
     def end_block(self):
         self.indent -= 1
+
+    def write_import_export(self, from_stmt: str, import_name: str):
+        self.writeln(f"from {from_stmt} import {import_name}")
+        self.export_names.append(import_name)
+
+    def write_export_names(self):
+        self.writeln(
+            "__all__ = [%s]" % (", ".join('"%s"' % n for n in self.export_names))
+        )
 
 
 def make_class_name(s: str):
@@ -204,12 +215,14 @@ for name, config in schema["definitions"].items():
 # `kubernetes.client.models` root.
 buf = CodegenBuf(MODELS_STUBS_DIR / "__init__.pyi")
 for name in schema["definitions"]:
-    buf.writeln(
-        f"from kubernetes.client.models.{make_file_name(name)} import {make_class_name(name)} as {make_class_name(name)}"
+    buf.write_import_export(
+        f"kubernetes.client.models.{make_file_name(name)}", make_class_name(name)
     )
-    buf.writeln(
-        f"from kubernetes.client.models.{make_file_name(name)} import {make_class_name(name)}Dict as {make_class_name(name)}Dict"
+    buf.write_import_export(
+        f"kubernetes.client.models.{make_file_name(name)}",
+        f"{make_class_name(name)}Dict",
     )
+buf.write_export_names()
 
 # `kubernetes.client.api` modules.
 apis: collections.defaultdict[str, Any] = collections.defaultdict(list)
@@ -304,23 +317,26 @@ for name, api in apis.items():
 # `kubernetes.client.api` root.
 buf = CodegenBuf(API_STUBS_DIR / "__init__.pyi")
 for name in apis:
-    buf.writeln(
-        f"from kubernetes.client.api.{name}_api import {make_class_name(name)}Api as {make_class_name(name)}Api"
+    buf.write_import_export(
+        f"kubernetes.client.api.{name}_api", f"{make_class_name(name)}Api"
     )
+buf.write_export_names()
 
 # `kubernetes.client` root.
 buf = CodegenBuf(CLIENT_STUBS_DIR / "__init__.pyi")
 for name in schema["definitions"]:
-    buf.writeln(
-        f"from kubernetes.client.models.{make_file_name(name)} import {make_class_name(name)} as {make_class_name(name)}"
+    buf.write_import_export(
+        f"kubernetes.client.models.{make_file_name(name)}", make_class_name(name)
     )
-    buf.writeln(
-        f"from kubernetes.client.models.{make_file_name(name)} import {make_class_name(name)}Dict as {make_class_name(name)}Dict"
+    buf.write_import_export(
+        f"kubernetes.client.models.{make_file_name(name)}",
+        f"{make_class_name(name)}Dict",
     )
 for name in apis:
-    buf.writeln(
-        f"from kubernetes.client.api.{name}_api import {make_class_name(name)}Api as {make_class_name(name)}Api"
+    buf.write_import_export(
+        f"kubernetes.client.api.{name}_api", f"{make_class_name(name)}Api"
     )
+buf.write_export_names()
 
 # `kubernetes` root.
 CodegenBuf(STUBS_DIR / "__init__.pyi")
