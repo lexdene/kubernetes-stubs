@@ -16,6 +16,19 @@ MODELS_STUBS_DIR = CLIENT_STUBS_DIR / "models"
 API_STUBS_DIR = CLIENT_STUBS_DIR / "api"
 EXT_DIR = ROOT_DIR / "kubernetes_ext"
 
+EXTRA_OPTIONAL_PARAMS = [
+    """
+        _request_timeout: typing.Union[
+            None,
+            int,
+            typing.Tuple[
+                typing.Union[float, int],
+                typing.Union[float, int],
+            ]
+        ] = ...
+    """,
+]
+
 schema = json.load(open(SCHEMA_FILE))
 
 for dir in [STUBS_DIR, EXT_DIR]:
@@ -282,7 +295,9 @@ for name, api in apis.items():
         required_params_str = ", ".join(param.param_str() for param in required_params)
         if required_params_str:
             required_params_str = ", " + required_params_str
-        optional_params_str = ", ".join(param.param_str() for param in optional_params)
+        optional_param_snippets = [param.param_str() for param in optional_params]
+        optional_param_snippets.extend(EXTRA_OPTIONAL_PARAMS)
+        optional_params_str = ", ".join(optional_param_snippets)
         if optional_params_str:
             optional_params_str = ", *, " + optional_params_str
         params_str = required_params_str + optional_params_str
