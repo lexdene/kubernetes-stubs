@@ -1,0 +1,30 @@
+name: manually release
+
+on:
+  workflow_dispatch:
+    inputs:
+      kubernetes_version:
+        description: 'version of Kubernetes Python client'
+      version_suffix:
+        description: 'version suffix'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'scripts/requirements.txt'
+      - run: pip install --upgrade pip wheel setuptools
+      - run: pip install -r scripts/requirements.txt
+      - run: poetry config virtualenvs.create false
+      - run: |
+          bash scripts/manually-release.sh "${{ inputs.kubernetes_version }}" "${{ inputs.version_suffix }}"
+      - name: check packages
+        id: check_packages
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "dist/*.whl"
