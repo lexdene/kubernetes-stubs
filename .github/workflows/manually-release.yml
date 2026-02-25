@@ -28,3 +28,8 @@ jobs:
         uses: andstor/file-existence-action@v2
         with:
           files: "dist/*.whl"
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        if: steps.check_packages.outputs.files_exists == 'true'
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist
