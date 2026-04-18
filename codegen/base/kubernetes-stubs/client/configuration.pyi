@@ -8,6 +8,8 @@ class Configuration(object):
     username: str
     password: str
     discard_unknown_keys: bool
+    verify_ssl: bool
+    retries: Optional[int]
     def __init__(
         self,
         host: str = ...,
