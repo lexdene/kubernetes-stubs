@@ -259,6 +259,7 @@ for name, api in apis.items():
     buf.writeln("import typing")
     buf.writeln()
     buf.start_block(f"class {class_name}Api")
+    buf.writeln("api_client: kubernetes.client.ApiClient")
     buf.start_block(
         f"def __init__(self, api_client: typing.Optional[kubernetes.client.ApiClient] = ...) -> None"
     )
@@ -339,6 +340,17 @@ buf.write_export_names()
 
 # `kubernetes.client` root.
 buf = CodegenBuf(CLIENT_STUBS_DIR / "__init__.pyi")
+buf.export_names.extend(
+    [
+        "ApiClient",
+        "Configuration",
+        "ApiException",
+        "ApiKeyError",
+        "ApiTypeError",
+        "ApiValueError",
+        "OpenApiException",
+    ]
+)
 for name in schema["definitions"]:
     buf.write_import_export(
         f"kubernetes.client.models.{make_file_name(name)}", make_class_name(name)
