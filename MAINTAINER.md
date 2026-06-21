@@ -13,7 +13,7 @@
 2. Do code generation:
 
    ```
-   poetry run python codegen
+   uv run --frozen python codegen
    ```
 
 3. Format:

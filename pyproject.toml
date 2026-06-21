@@ -18,10 +18,33 @@ include = [
     { path = "kubernetes-stubs/**/*" },
 ]
 
-[tool.poetry.dev-dependencies]
-black = "^21.6b0"
-isort = "^5.9.2"
-inflection = "^0.5.1"
+[dependency-groups]
+dev = [
+    "black",
+    "inflection",
+    "isort",
+    "kubernetes==36.0.2",
+    "mypy",
+    "packaging",
+    "pyright",
+    "toml-cli",
+    "ty",
+]
+
+[tool.mypy]
+files = ["tests/typecheck.py"]
+strict = true
+
+[tool.pyright]
+include = ["tests/typecheck.py"]
+pythonVersion = "3.11"
+typeCheckingMode = "strict"
+
+[tool.ty.src]
+include = ["tests/typecheck.py"]
+
+[tool.ty.rules]
+all = "error"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

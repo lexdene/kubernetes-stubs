@@ -1,0 +1,16 @@
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  typing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v8.2.0
+        with:
+          enable-cache: true
+      - run: scripts/check.sh

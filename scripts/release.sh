@@ -19,16 +19,16 @@ rm -rf kubernetes-client-python \
     kubernetes_ext
 
 mkdir -p kubernetes-client-python/scripts
-pushd kubernetes-client-python/scripts
-wget https://github.com/kubernetes-client/python/raw/v${VERSION}/scripts/swagger.json
-popd
+curl --fail --location \
+    --output kubernetes-client-python/scripts/swagger.json \
+    "https://github.com/kubernetes-client/python/raw/v${VERSION}/scripts/swagger.json"
 
-poetry run python codegen
+uv run --frozen python codegen
 
-poetry run black codegen kubernetes-stubs kubernetes_ext
-poetry run isort codegen kubernetes-stubs kubernetes_ext
+uv run --frozen black codegen kubernetes-stubs kubernetes_ext
+uv run --frozen isort codegen kubernetes-stubs kubernetes_ext
 
 # Is there any better way to update version from command line?
-toml set --toml-path pyproject.toml tool.poetry.version "${PUBLISH_VERSION}"
+uv run --frozen toml set --toml-path pyproject.toml tool.poetry.version "${PUBLISH_VERSION}"
 
-poetry build
+uv build
