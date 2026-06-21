@@ -20,7 +20,6 @@ __all__ = [
     "new_client_from_config",
 ]
 
-
 def load_config(
     config_file: Optional[str] = ...,
     kube_config_path: Optional[str] = ...,
