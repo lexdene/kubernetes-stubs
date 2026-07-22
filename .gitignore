@@ -3,5 +3,5 @@ __pycache__
 venv/
 
 kubernetes-client-python/
-kubernetes-stubs/
+/kubernetes-stubs/
 kubernetes_ext/
