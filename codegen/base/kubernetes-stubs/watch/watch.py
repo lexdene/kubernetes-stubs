@@ -3,8 +3,8 @@ from typing import (
 )
 from collections.abc import Callable, Iterable
 
-_T = TypeVar("T")
-_P = ParamSpec("P")
+_T = TypeVar("_T")
+_P = ParamSpec("_P")
 
 
 class _ObjectEvent(TypedDict, Generic[_T]):
