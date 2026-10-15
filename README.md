@@ -2,6 +2,19 @@
 
 fork of [kubernetes-stubs][1]
 
+## deprecated
+
+This library is deprecated.
+
+The official Kubernetes Python client has supported typing since version 37.0.0,
+making `kubernetes-stubs-elephant-fork` obsolete.
+
+Thank you to everyone who installed and used `kubernetes-stubs-elephant-fork` over the past few years.
+Working on this has been such a wonderful time for me,
+but now it's time to say goodbye.
+
+Wishing you all the best and good luck in the days ahead!
+
 ## why fork?
 
 [kubernetes-stubs][1] has not provided stubs for [kubernetes][2] >= 23.0 yet (2023-05-30).
